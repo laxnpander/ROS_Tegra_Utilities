@@ -2,10 +2,12 @@
 #include <ros_tegra_utilities/jpeg_compression_node.h>
 
 JpegCompressionNode::JpegCompressionNode()
- : spin_rate_(50.0),
-   jpeg_compressor_(new hw_acceleration::JpegCompressor(100))
+ : fps_(15),
+   spin_rate_(45.0)
 {
   readParameters();
+
+  jpeg_compressor_.reset(new hw_acceleration::JpegCompressor(quality_));
 
   sub_image_ = nh_.subscribe(topic_image_in_, 10, &JpegCompressionNode::subImageRaw, this, ros::TransportHints());
 
@@ -16,8 +18,12 @@ void JpegCompressionNode::readParameters()
 {
   ros::NodeHandle param_nh("~");
 
+  param_nh.param("fps", fps_, 15.0);
+  param_nh.param("quality", quality_, 100);
   param_nh.param("topic_in", topic_image_in_, std::string("/camera/image_raw"));
   param_nh.param("topic_out", topic_image_out_, std::string("/tegra_utils/image_compressed"));
+
+  spin_rate_ = fps_ * 3;
 }
 
 void JpegCompressionNode::spin() const
@@ -55,6 +61,4 @@ void JpegCompressionNode::subImageRaw(const sensor_msgs::ImageConstPtr &msg_in) 
   msg_out.format = "jpeg";
 
   pub_image_compressed_.publish(msg_out);
-
-  std::cout << "Total: " << getCurrentTimeMilliseconds() - t << std::endl;
 }

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<launch>
+
+    <node pkg="ros_tegra_utilities" type="jpeg_compression_node" name="jpeg_compression" output="screen">
+        <param name="fps" type="double" value="15.0"/>
+        <param name="quality" type="int" value="100"/>
+        <param name="topic_in" type="string" value="/camera/image_raw"/>
+        <param name="topic_out" type="string" value="/tegra_utils/compressed"/>
+    </node>
+
+</launch>

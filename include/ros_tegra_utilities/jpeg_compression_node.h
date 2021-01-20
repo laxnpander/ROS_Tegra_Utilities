@@ -26,6 +26,9 @@ public:
 
 private:
 
+  int quality_;
+
+  double fps_;
   double spin_rate_;
 
   // topics

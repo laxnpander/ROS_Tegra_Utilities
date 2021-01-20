@@ -1,0 +1,28 @@
+<package format="2">
+  <name>ros_tegra_utilities</name>
+  <version>1.0.0</version>
+  <description>The ros_tegra_utilities package</description>
+
+  <author>Alexander Kern</author>
+  <maintainer email="a.kern@tu-bs.de">Laxnpander</maintainer>
+
+  <license>GPL</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>roscpp</build_depend>
+  <build_depend>roslib</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>cv_bridge</build_depend>
+
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>roslib</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>cv_bridge</exec_depend>
+
+  <!-- The export tag contains other, unspecified, tags -->
+ <export>
+   <cpp cflags="-I${prefix}/include" lflags="-L${prefix}/lib -lros_tegra_utilities"/>
+ </export>
+
+</package>
